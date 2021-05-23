@@ -22,7 +22,7 @@ jobs:
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: |
         cd project
-        make config=debug_x86
+        make config=release_x32
 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2.2.3
@@ -46,7 +46,7 @@ jobs:
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: |
         cd project
-        make config=debug_x86_64
+        make config=release_x86_64
 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2.2.3
