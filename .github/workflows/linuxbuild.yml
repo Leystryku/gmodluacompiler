@@ -11,12 +11,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-
-    - name: Install prerequisites
-      working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: |
-        sudo apt-get install gcc-multilib g++-multilib
-
+      
     - name: PreMake5
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: |
@@ -32,7 +27,7 @@ jobs:
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2.2.3
       with:
-        name: "Binary"
+        name: "gmodluacompiler x86"
         path: "build/release/gmodluacompiler"
 
   build_x64:
@@ -56,5 +51,5 @@ jobs:
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2.2.3
       with:
-        name: "Binary"
+        name: "gmodluacompiler x64"
         path: "build/release/gmodluacompiler"
