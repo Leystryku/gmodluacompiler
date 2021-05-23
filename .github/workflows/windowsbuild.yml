@@ -28,8 +28,8 @@ jobs:
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2.2.3
       with:
-        name: "Exe"
-        path: "build/release/gmodluacompilerx86.exe"
+        name: "gmodluacompiler x86"
+        path: "build/release/gmodluacompiler.exe"
 
   build_x64:
     runs-on: windows-latest
@@ -53,5 +53,5 @@ jobs:
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2.2.3
       with:
-        name: "Exe"
-        path: "build/release/gmodluacompilerx64.exe"
+        name: "gmodluacompiler x64"
+        path: "build/release/gmodluacompiler.exe"

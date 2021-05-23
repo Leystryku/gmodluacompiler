@@ -22,10 +22,34 @@ jobs:
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: |
         cd project
-        make config=release_x86
+        make config=debug_x86
 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2.2.3
       with:
         name: "Binary"
-        path: "build/release/gmodluacompilerx86"
+        path: "build/release/gmodluacompiler"
+
+  build_x64:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      
+    - name: PreMake5
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: |
+        chmod +x premake5
+        ./premake5 gmake
+      
+    - name: Build
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: |
+        cd project
+        make config=debug_x86_64
+
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v2.2.3
+      with:
+        name: "Binary"
+        path: "build/release/gmodluacompiler"

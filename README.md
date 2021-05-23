@@ -8,8 +8,14 @@ A small C++ program which takes the Lua API from Garry's Mod and uses it compile
 none available
 
 # Running
-## Windows
-Copy the following binaries from GMod to the directory of gmodluacompiler.exe
+## Windows x86
+Copy the following binaries from GMod to the directory of gmodluacompilerx86.exe
+- lua_shared.dll
+- tier0.dll
+- vstdlib.dll
+
+## Windows x64
+Copy the following binaries from GMod to the directory of gmodluacompilerx64.exe
 - lua_shared.dll
 - tier0.dll
 - vstdlib.dll
@@ -31,6 +37,9 @@ Copy the following binaries from GMod to the directory of gmodluacompiler
 - libtier0.so
 - libsteam_api.so
 
+## All of them
+After the dependencies are in the same directory, just run gmodluacompiler with the parameters you want.
+On Linux e.g. ./gmodluacompiler "toparse.lua", on Windows e.g. gmodluacompiler.exe "toparse.lua"
 
 #### Troubleshooting
 If it crashes with a MessageBox on startup install the VC++ 2019 redists from microsoft https://www.microsoft.com/.
