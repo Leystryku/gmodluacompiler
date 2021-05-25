@@ -9,12 +9,7 @@ char outputFileName[0xFF] = { 0 };
 bool parseMode = true;
 bool stripDebugMode = false;
 
-long long *CalcAbsAddress(long long a)
-{
-	return (long long *)(a + (int)(*(long long *)a) + sizeof(int));
-}
-
-static int luaFunction(void *L)
+static int LuaFunction(void *L)
 {
     if (parseMode)
     {
@@ -26,6 +21,7 @@ static int luaFunction(void *L)
         printf("Parsed file without any errors\n");
         return 0;
     }
+
     lua_getglobal(L, "string");
     lua_getfield(L, -1, "dump");
 
@@ -51,26 +47,26 @@ static int luaFunction(void *L)
         return 0;       
     }
 
-    size_t len = 0;
-    const char *bytecode = lua_tolstring(L, -1, &len);
+    size_t length = 0;
+    const char *bytecode = lua_tolstring(L, -1, &length);
 
-    if (len <= 0)
+    if (length <= 0)
     {
         printf("Lua Bytecode Length must be over 1!\n");
         return 0;
     }
 
-    printf("Compiled successfully: %zu bytes\n", len);
+    printf("Compiled successfully: %zu bytes\n", length);
 
     FILE* handle = fopen(outputFileName, "wb");
 
     if (handle == nullptr)
     {
-        printf("Could not get file handle %s\n", outputFileName);
+        printf("Could not create file %s\n", outputFileName);
         return 0;
     }
     
-    fwrite(bytecode, len, 1, handle);
+    fwrite(bytecode, length, 1, handle);
     fclose(handle);
 
     return 0;
@@ -81,7 +77,8 @@ int main(int argc, char *argv[])
 {
     if (argc <= 1)
     {
-        printf("Arguments: \"inputFileName\" \"outputFileName\" \"1 for parseMode\" \"1 For stripDebugMode\"\n");
+        printf("Arguments: inputFileName outputFileName stripDebugMode\"\n");
+        printf("Not supplying a outputFileName will enable ParsingMode\n");
         return 1;
     }
 
@@ -98,9 +95,9 @@ int main(int argc, char *argv[])
         }
     }
 
-    printf("Input: %s Output: %s ParseMode: %d StripDebug: %d\n", inputFileName, outputFileName, (int)parseMode, (int)stripDebugMode);
+    printf("Input: %s Output: %s ParsingMode: %d StripDebug: %d\n", inputFileName, outputFileName, (int)parseMode, (int)stripDebugMode);
 
-    if (!InitializeLua((void*)luaFunction))
+    if (!InitializeLua((void*)LuaFunction))
     {
         printf("Error initializing Lua\n");
         return 1;
